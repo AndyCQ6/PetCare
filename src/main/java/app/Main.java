@@ -1,4 +1,4 @@
-package app;
+package App;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
