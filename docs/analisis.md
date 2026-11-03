@@ -56,60 +56,7 @@ El modelo se organiza por dominios, cada uno en su propio paquete:
 
 ## Diagrama de clases
 
-![Diagrama de clases de PetCare](docs/Diagrama_de_Clases_PetCare.png)
-
-Vista simplificada (se renderiza directamente en GitHub):
-
-```mermaid
-classDiagram
-    class Persona {
-        <<abstract>>
-        #nombre
-        #apellido
-        #telefono
-        #correo
-        +describirRol()*
-    }
-    Persona <|-- Propietario
-    Persona <|-- Veterinario
-    Persona <|-- Recepcionista
-
-    class Mascota {
-        <<abstract>>
-        +hacerSonido()*
-    }
-    Mascota <|-- Perro
-    Mascota <|-- Gato
-    Mascota <|-- AveExotica
-
-    class Servicio {
-        <<abstract>>
-    }
-    class Facturable {
-        <<interface>>
-        +calcularCosto() BigDecimal
-    }
-    Servicio <|-- ConsultaGeneral
-    Servicio <|-- Vacunacion
-    Servicio <|-- Cirugia
-    Facturable <|.. ConsultaGeneral
-    Facturable <|.. Vacunacion
-    Facturable <|.. Cirugia
-
-    Propietario "1" --> "0..*" Mascota
-    Mascota "1" *-- "1" HistorialClinico
-    HistorialClinico o-- "0..*" Cita
-    Cita --> Mascota
-    Cita --> Veterinario
-    Cita --> Servicio
-    Cita --> Consultorio
-    Cita --> EstadoCita
-    Cita "0..1" -- "1" Comprobante
-    Clinica o-- "0..*" Veterinario
-    Clinica o-- "0..*" Consultorio
-    Clinica o-- "0..*" Cita
-    Recepcionista ..> Cita : registrarCita
-```
+![Diagrama de clases de PetCare](docs/Diagrama_PetCarePOO.drawio.png)
 
 ## Conceptos de POO aplicados
 
