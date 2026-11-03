@@ -1,6 +1,7 @@
 package modelo.personas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import modelo.mascotas.Mascota;
@@ -8,9 +9,12 @@ import modelo.mascotas.Mascota;
 /**
  * Clase Propietario. Es la persona responsable de una o varias mascotas.
  *
- * NOTA: Decidí cambiar el nombre "dueño" por el de propietario, con el fin de evitar el uso de caracteres especiales del español, como la letra eñe.
+ * NOTA: Decidí cambiar el nombre "dueño" por el de propietario, con el fin de evitar el
+ * uso de caracteres especiales del español, como la letra eñe.
  *
- * ¿Cómo se relaciona con la programación orientada a objetos?: hereda de Persona y se asocia con Mascota (un dueño puede tener muchas).
+ * Conceptos de POO: hereda de Persona y se asocia con Mascota (un dueño puede tener muchas).
+ * La lista de mascotas se devuelve como vista no modificable para que nadie la altere
+ * desde afuera.
  */
 public class Propietario extends Persona {
     private String direccion;
@@ -26,12 +30,13 @@ public class Propietario extends Persona {
      * @param telefono teléfono de contacto
      * @param correo correo electrónico
      * @param direccion domicilio del dueño
+     * @throws IllegalArgumentException si algún dato no es válido
      */
     public Propietario(String nombre, String apellido, String telefono, String correo,
                        String direccion) {
         super(nombre, apellido, telefono, correo);
         this.mascotas = new ArrayList<>();
-        this.direccion = direccion;
+        this.direccion = validarTexto(direccion, "dirección");
     }
 
     /** Obtiene la dirección del dueño. */
@@ -39,30 +44,47 @@ public class Propietario extends Persona {
         return direccion;
     }
 
-    /** Establece la dirección del dueño. */
+    /** Establece la dirección del dueño (no puede estar vacía). */
     public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        this.direccion = validarTexto(direccion, "dirección");
     }
 
-    /** Obtiene la lista de mascotas del dueño. */
+    /** Obtiene la lista de mascotas del dueño (vista no modificable). */
     public List<Mascota> getMascotas() {
-        return mascotas;
+        return Collections.unmodifiableList(mascotas);
     }
 
     /**
-     * Añade una mascota a la lista del dueño.
+     * Añade una mascota a la lista del dueño. Si ya estaba, no la duplica.
+     *
      * @param mascota mascota que se quiere registrar con este dueño
+     * @throws IllegalArgumentException si la mascota es nula
      */
     public void agregarMascota(Mascota mascota) {
+        if (mascota == null) {
+            throw new IllegalArgumentException("La mascota no puede ser nula.");
+        }
+        if (!mascotas.contains(mascota)) {
+            mascotas.add(mascota);
+        }
+    }
+
+    /**
+     * Quita una mascota de la lista del dueño (por ejemplo, al darla de baja).
+     *
+     * @param mascota mascota que se quiere quitar
+     */
+    public void quitarMascota(Mascota mascota) {
+        mascotas.remove(mascota);
     }
 
     /**
      * Consulta las mascotas que pertenecen al dueño.
      *
-     * @return lista de mascotas del dueño
+     * @return lista no modificable de mascotas del dueño
      */
     public List<Mascota> listarMascotas() {
-        return null;
+        return getMascotas();
     }
 
     /**
@@ -72,7 +94,7 @@ public class Propietario extends Persona {
      */
     @Override
     public String describirRol() {
-        return null;
+        return "Propietario responsable de " + mascotas.size() + " mascota(s)";
     }
 
     /**
@@ -82,6 +104,6 @@ public class Propietario extends Persona {
      */
     @Override
     public String toString() {
-        return null;
+        return getNombreCompleto() + " (Propietario) - Tel. " + telefono;
     }
 }

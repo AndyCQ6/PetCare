@@ -5,7 +5,7 @@ import modelo.personas.Propietario;
 /**
  * Clase Gato. Es una mascota que además indica si es doméstico o no.
  *
- * ¿Cómo se relaciona con la programación orientada a objetos?: hereda de Mascota y sobrescribe hacerSonido().
+ * Conceptos de POO: hereda de Mascota y sobrescribe hacerSonido().
  */
 public class Gato extends Mascota {
     private boolean domestico;
@@ -19,6 +19,7 @@ public class Gato extends Mascota {
      * @param peso peso del gato
      * @param propietario dueño del gato
      * @param domestico true si el gato es doméstico, false en caso contrario
+     * @throws IllegalArgumentException si algún dato no es válido
      */
     public Gato(String nombre, int edad, double peso, Propietario propietario, boolean domestico) {
         super(nombre, edad, peso, propietario);
@@ -46,7 +47,7 @@ public class Gato extends Mascota {
      */
     @Override
     public String hacerSonido() {
-        return null;
+        return "Miau";
     }
 
     /**
@@ -56,6 +57,6 @@ public class Gato extends Mascota {
      */
     @Override
     public String toString() {
-        return null;
+        return super.toString() + (domestico ? ", doméstico" : ", no doméstico");
     }
 }

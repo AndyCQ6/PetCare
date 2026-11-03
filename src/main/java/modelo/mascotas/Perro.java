@@ -5,7 +5,7 @@ import modelo.personas.Propietario;
 /**
  * Clase Perro. Es una mascota con raza y nivel de energía.
  *
- * ¿Cómo se relaciona con la programación orientada a objetos?: hereda de Mascota y sobrescribe hacerSonido().
+ * Conceptos de POO: hereda de Mascota y sobrescribe hacerSonido().
  */
 public class Perro extends Mascota {
     private String raza;
@@ -21,12 +21,13 @@ public class Perro extends Mascota {
      * @param propietario dueño del perro
      * @param raza raza del perro
      * @param nivelEnergia nivel de energía (por ejemplo, alto, medio o bajo)
+     * @throws IllegalArgumentException si algún dato no es válido
      */
     public Perro(String nombre, int edad, double peso, Propietario propietario, String raza,
                  String nivelEnergia) {
         super(nombre, edad, peso, propietario);
-        this.raza = raza;
-        this.nivelEnergia = nivelEnergia;
+        this.raza = validarTexto(raza, "raza");
+        this.nivelEnergia = validarTexto(nivelEnergia, "nivel de energía");
     }
 
     /** Obtiene la raza. */
@@ -34,9 +35,9 @@ public class Perro extends Mascota {
         return raza;
     }
 
-    /** Establece la raza. */
+    /** Establece la raza (no puede estar vacía). */
     public void setRaza(String raza) {
-        this.raza = raza;
+        this.raza = validarTexto(raza, "raza");
     }
 
     /** Obtiene el nivel de energía. */
@@ -44,9 +45,9 @@ public class Perro extends Mascota {
         return nivelEnergia;
     }
 
-    /** Establece el nivel de energía. */
+    /** Establece el nivel de energía (no puede estar vacío). */
     public void setNivelEnergia(String nivelEnergia) {
-        this.nivelEnergia = nivelEnergia;
+        this.nivelEnergia = validarTexto(nivelEnergia, "nivel de energía");
     }
 
     /**
@@ -56,7 +57,7 @@ public class Perro extends Mascota {
      */
     @Override
     public String hacerSonido() {
-        return null;
+        return "Guau guau";
     }
 
     /**
@@ -66,6 +67,6 @@ public class Perro extends Mascota {
      */
     @Override
     public String toString() {
-        return null;
+        return super.toString() + ", raza " + raza + ", energía " + nivelEnergia;
     }
 }

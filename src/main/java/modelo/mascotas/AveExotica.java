@@ -3,26 +3,35 @@ package modelo.mascotas;
 import modelo.personas.Propietario;
 
 /**
- * Clase AveExotica. Es una mascota que además registra la longitud de sus alas.
+ * Clase AveExotica. Es una mascota con una longitud de alas.
  *
- * ¿Cómo se relaciona con la programación orientada a objetos?: hereda de Mascota y sobrescribe hacerSonido().
+ * Conceptos de POO: hereda de Mascota y sobrescribe hacerSonido().
  */
 public class AveExotica extends Mascota {
     private double longitudAlas;
 
     /**
-     * Constructor. Envía los datos comunes a Mascota con super(...) y guarda la longitud
-     * de las alas.
+     * Constructor. Envía los datos comunes a Mascota con super(...) y guarda la longitud de
+     * las alas.
      *
      * @param nombre nombre del ave
      * @param edad edad del ave
      * @param peso peso del ave
      * @param propietario dueño del ave
-     * @param longitudAlas longitud de las alas del ave
+     * @param longitudAlas longitud de las alas en centímetros (mayor que cero)
+     * @throws IllegalArgumentException si algún dato no es válido
      */
-    public AveExotica(String nombre, int edad, double peso, Propietario propietario, double longitudAlas) {
+    public AveExotica(String nombre, int edad, double peso, Propietario propietario,
+            double longitudAlas) {
         super(nombre, edad, peso, propietario);
-        this.longitudAlas = longitudAlas;
+        this.longitudAlas = validarLongitud(longitudAlas);
+    }
+
+    private static double validarLongitud(double longitud) {
+        if (longitud <= 0 || Double.isNaN(longitud)) {
+            throw new IllegalArgumentException("La longitud de alas debe ser mayor que cero.");
+        }
+        return longitud;
     }
 
     /** Obtiene la longitud de las alas. */
@@ -30,9 +39,9 @@ public class AveExotica extends Mascota {
         return longitudAlas;
     }
 
-    /** Establece la longitud de las alas. */
+    /** Establece la longitud de las alas (mayor que cero). */
     public void setLongitudAlas(double longitudAlas) {
-        this.longitudAlas = longitudAlas;
+        this.longitudAlas = validarLongitud(longitudAlas);
     }
 
     /**
@@ -42,7 +51,7 @@ public class AveExotica extends Mascota {
      */
     @Override
     public String hacerSonido() {
-        return null;
+        return "Pío pío";
     }
 
     /**
@@ -52,6 +61,6 @@ public class AveExotica extends Mascota {
      */
     @Override
     public String toString() {
-        return null;
+        return super.toString() + String.format(", alas de %.1f cm", longitudAlas);
     }
 }

@@ -3,7 +3,7 @@ package modelo.personas;
 /**
  * Clase Veterinario. Es el profesional que atiende las citas de las mascotas.
  *
- * ¿Cómo se relaciona con la programación orientada a objetos?: hereda de Persona. Existe de forma independiente a la clínica, por eso
+ * Conceptos de POO: hereda de Persona. Existe de forma independiente a la clínica, por eso
  * la relación con Clinica es una agregación (puede trabajar en otra clínica).
  * Reglas de negocio relacionadas:
  * - Regla 2: no puede tener dos citas programadas a la misma hora.
@@ -23,12 +23,13 @@ public class Veterinario extends Persona {
      * @param correo correo electrónico
      * @param cedulaProfesional número de cédula profesional
      * @param especialidad área en la que se especializa
+     * @throws IllegalArgumentException si algún dato no es válido
      */
     public Veterinario(String nombre, String apellido, String telefono, String correo,
             String cedulaProfesional, String especialidad) {
         super(nombre, apellido, telefono, correo);
-        this.cedulaProfesional = cedulaProfesional;
-        this.especialidad = especialidad;
+        this.cedulaProfesional = validarTexto(cedulaProfesional, "cédula profesional");
+        this.especialidad = validarTexto(especialidad, "especialidad");
     }
 
     /** Obtiene la cédula profesional. */
@@ -36,9 +37,9 @@ public class Veterinario extends Persona {
         return cedulaProfesional;
     }
 
-    /** Establece la cédula profesional. */
+    /** Establece la cédula profesional (no puede estar vacía). */
     public void setCedulaProfesional(String cedulaProfesional) {
-        this.cedulaProfesional = cedulaProfesional;
+        this.cedulaProfesional = validarTexto(cedulaProfesional, "cédula profesional");
     }
 
     /** Obtiene la especialidad. */
@@ -46,9 +47,9 @@ public class Veterinario extends Persona {
         return especialidad;
     }
 
-    /** Establece la especialidad. */
+    /** Establece la especialidad (no puede estar vacía). */
     public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+        this.especialidad = validarTexto(especialidad, "especialidad");
     }
 
     /**
@@ -58,7 +59,7 @@ public class Veterinario extends Persona {
      */
     @Override
     public String describirRol() {
-        return null;
+        return "Veterinario de " + especialidad + " (cédula " + cedulaProfesional + ")";
     }
 
     /**
@@ -68,6 +69,6 @@ public class Veterinario extends Persona {
      */
     @Override
     public String toString() {
-        return null;
+        return "Dr(a). " + getNombreCompleto() + " - " + especialidad;
     }
 }

@@ -1,6 +1,7 @@
 package modelo.servicios;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Clase ConsultaGeneral. Es el servicio de consulta veterinaria; su costo es la tarifa base.
@@ -16,10 +17,11 @@ public class ConsultaGeneral extends Servicio implements Facturable {
      * tarifa.
      *
      * @param tarifaBase tarifa de la consulta (no negativa)
+     * @throws IllegalArgumentException si la tarifa es nula o negativa
      */
     public ConsultaGeneral(BigDecimal tarifaBase) {
         super("Consulta general");
-        this.tarifaBase = tarifaBase;
+        this.tarifaBase = validarMonto(tarifaBase, "tarifa base");
     }
 
     /** Obtiene la tarifa base. */
@@ -29,7 +31,7 @@ public class ConsultaGeneral extends Servicio implements Facturable {
 
     /** Establece la tarifa base; no puede ser negativa (regla 5). */
     public void setTarifaBase(BigDecimal tarifaBase) {
-        this.tarifaBase = tarifaBase;
+        this.tarifaBase = validarMonto(tarifaBase, "tarifa base");
     }
 
     /**
@@ -39,7 +41,7 @@ public class ConsultaGeneral extends Servicio implements Facturable {
      */
     @Override
     public BigDecimal calcularCosto() {
-        return null;
+        return tarifaBase.setScale(2, RoundingMode.HALF_UP);
     }
 
     /**
@@ -49,6 +51,6 @@ public class ConsultaGeneral extends Servicio implements Facturable {
      */
     @Override
     public String toString() {
-        return null;
+        return nombre + " ($" + calcularCosto() + ")";
     }
 }

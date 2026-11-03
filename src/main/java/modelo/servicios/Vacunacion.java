@@ -1,13 +1,13 @@
 package modelo.servicios;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
- * Clase Vacunacion. Es el servicio de vacunación; su costo es el precio de la vacuna más
- * la tarifa por aplicarla.
+ * Clase Vacunacion. Es el servicio de vacunación; su costo suma la vacuna y la aplicación.
  *
  * Conceptos de POO: hereda de Servicio e implementa la interfaz Facturable.
- * Regla de negocio relacionada: regla 5, ni los costos ni el total pueden ser negativos.
+ * Regla de negocio relacionada: regla 5, los montos y el costo no pueden ser negativos.
  */
 public class Vacunacion extends Servicio implements Facturable {
     private BigDecimal costoVacuna;
@@ -15,15 +15,16 @@ public class Vacunacion extends Servicio implements Facturable {
 
     /**
      * Constructor. Envía el nombre fijo del servicio a Servicio con super(...) y guarda los
-     * dos costos.
+     * montos que forman el cobro.
      *
      * @param costoVacuna precio de la vacuna (no negativo)
-     * @param tarifaAplicacion tarifa por aplicar la vacuna (no negativa)
+     * @param tarifaAplicacion tarifa por aplicarla (no negativa)
+     * @throws IllegalArgumentException si algún monto es nulo o negativo
      */
     public Vacunacion(BigDecimal costoVacuna, BigDecimal tarifaAplicacion) {
         super("Vacunación");
-        this.costoVacuna = costoVacuna;
-        this.tarifaAplicacion = tarifaAplicacion;
+        this.costoVacuna = validarMonto(costoVacuna, "costo de la vacuna");
+        this.tarifaAplicacion = validarMonto(tarifaAplicacion, "tarifa de aplicación");
     }
 
     /** Obtiene el costo de la vacuna. */
@@ -33,7 +34,7 @@ public class Vacunacion extends Servicio implements Facturable {
 
     /** Establece el costo de la vacuna; no puede ser negativo (regla 5). */
     public void setCostoVacuna(BigDecimal costoVacuna) {
-        this.costoVacuna = costoVacuna;
+        this.costoVacuna = validarMonto(costoVacuna, "costo de la vacuna");
     }
 
     /** Obtiene la tarifa de aplicación. */
@@ -43,18 +44,18 @@ public class Vacunacion extends Servicio implements Facturable {
 
     /** Establece la tarifa de aplicación; no puede ser negativa (regla 5). */
     public void setTarifaAplicacion(BigDecimal tarifaAplicacion) {
-        this.tarifaAplicacion = tarifaAplicacion;
+        this.tarifaAplicacion = validarMonto(tarifaAplicacion, "tarifa de aplicación");
     }
 
     /**
-     * Implementación de calcularCosto() de Facturable. El costo es la suma de la vacuna y
-     * su aplicación.
+     * Implementación de calcularCosto() de Facturable. El costo es la vacuna más su
+     * aplicación.
      *
-     * @return costo total de la vacunación
+     * @return costo de la vacunación
      */
     @Override
     public BigDecimal calcularCosto() {
-        return null;
+        return costoVacuna.add(tarifaAplicacion).setScale(2, RoundingMode.HALF_UP);
     }
 
     /**
@@ -64,6 +65,6 @@ public class Vacunacion extends Servicio implements Facturable {
      */
     @Override
     public String toString() {
-        return null;
+        return nombre + " ($" + calcularCosto() + ")";
     }
 }
