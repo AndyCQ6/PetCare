@@ -56,7 +56,7 @@ El modelo se organiza por dominios, cada uno en su propio paquete:
 
 ## Diagrama de clases
 
-![Diagrama de clases de PetCare](docs/diagramas/Diagrama_PetCarePOO.drawio.png)
+![Diagrama de clases de PetCare](diagramas/Diagrama_PetCarePOO.drawio.png)
 
 ## Conceptos de POO aplicados
 
