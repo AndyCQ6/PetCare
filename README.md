@@ -60,7 +60,7 @@ El razonamiento detrás de cada decisión está en [`docs/analisis.md`](docs/ana
 
 ## Diagrama de clases
 
-![Diagrama de clases de PetCare](docs/diagramas/Diagrama_de_Clases_PetCare.png)
+![Diagrama de clases de PetCare](docs/diagramas/Diagrama_PetCarePOO.drawio.png)
 
 ## Estructura del proyecto
 
