@@ -1,304 +1,146 @@
-\# PetCare. Sistema de Gestión Veterinaria
+# PetCare. Sistema de Gestión Veterinaria
 
+![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-build-C71A36?logo=apachemaven&logoColor=white)
+![Tipo](https://img.shields.io/badge/App-consola-blue)
 
+Aplicación de consola en **Java** para administrar una clínica veterinaria: propietarios, mascotas, veterinarios, consultorios, citas, servicios y comprobantes de pago, con un diseño orientado a objetos.
 
-Sistema de consola desarrollado en Java para la administración de una clínica veterinaria. Permite gestionar propietarios, mascotas, veterinarios, consultorios, citas, servicios y comprobantes de pago mediante un diseño orientado a objetos.
+Desarrollado para la experiencia educativa **Diseño y Programación Orientada a Objetos** de la Universidad Veracruzana.
 
+## Contenido
 
+- [Funcionalidades](#-funcionalidades)
+- [Tecnologías](#-tecnologías)
+- [Modelo orientado a objetos](#-modelo-orientado-a-objetos)
+- [Diagrama de clases](#-diagrama-de-clases)
+- [Estructura del proyecto](#-estructura-del-proyecto)
+- [Instalación y ejecución](#-instalación-y-ejecución)
+- [Demostración](#-demostración)
+- [Documentación adicional](#-documentación-adicional)
+- [Uso de inteligencia artificial](#-uso-de-inteligencia-artificial)
+- [Autor](#-autor)
+- [Licencia](#-licencia)
 
-\## Descripción del proyecto
+## Funcionalidades
 
+- Registro y administración de propietarios y sus mascotas (perros, gatos y aves exóticas).
+- Administración de veterinarios y recepcionistas.
+- Creación y asignación de consultorios.
+- Agendamiento y administración de citas con control de estado.
+- Servicios: consulta general, vacunación y cirugía.
+- Cálculo de costos mediante polimorfismo.
+- Generación de comprobantes de pago.
+- Consulta de historiales clínicos y de cobros.
+- Validación de reglas de negocio.
 
+## Tecnologías
 
-PetCare busca facilitar la organización de las actividades principales de una clínica veterinaria, proporcionando una estructura para registrar mascotas y propietarios, administrar citas, asignar servicios y calcular los costos de atención.
+| Herramienta | Uso |
+|---|---|
+| Java 21 | Lenguaje |
+| Maven | Compilación y gestión del proyecto |
+| IntelliJ IDEA | Entorno de desarrollo |
+| Git y GitHub | Control de versiones |
 
-
-
-El proyecto fue desarrollado como parte de la experiencia educativa \*\*Diseño y Programación Orientada a Objetos\*\* de la Universidad Veracruzana.
-
-
-
-\## Tecnologías utilizadas
-
-
-
-\- \*\*Lenguaje:\*\* Java 21.
-
-\- \*\*Gestión del proyecto:\*\* Maven.
-
-\- \*\*Entorno de desarrollo:\*\* IntelliJ IDEA.
-
-\- \*\*Control de versiones:\*\* Git y GitHub.
-
-\- \*\*Paradigma:\*\* Programación Orientada a Objetos.
-
-
-
-\## Modelo orientado a objetos
-
-
-
-El sistema utiliza los siguientes conceptos:
-
-
+## Modelo orientado a objetos
 
 | Concepto | Aplicación en el proyecto |
-
 |---|---|
+| Encapsulamiento | Atributos privados y protegidos, getters, setters y validaciones |
+| Abstracción | Clases abstractas `Persona`, `Mascota` y `Servicio` |
+| Herencia | Jerarquías de personas, mascotas y servicios |
+| Polimorfismo | `hacerSonido()` y `calcularCosto()` |
+| Interfaces | Contrato `Facturable` para el cálculo de costos |
+| Composición | `Mascota` crea su `HistorialClinico`; `Clinica` crea sus `Consultorio` |
+| Agregación | `Clinica` registra veterinarios existentes |
+| Enumeraciones | `EstadoCita` limita los estados de una cita |
 
-| Encapsulamiento | Atributos privados y protegidos, getters, setters y validaciones. |
+El razonamiento detrás de cada decisión está en [`docs/analisis.md`](docs/analisis.md).
 
-| Abstracción | Clases abstractas `Persona`, `Mascota` y `Servicio`. |
+## Diagrama de clases
 
-| Herencia | Jerarquías de personas, mascotas y servicios. |
+![Diagrama de clases de PetCare](docs/diagramas/Diagrama_de_Clases_PetCare.png)
 
-| Polimorfismo | Implementación de `hacerSonido()` y `calcularCosto()`. |
-
-| Interfaces | Contrato `Facturable` para el cálculo de costos. |
-
-| Composición | `Mascota` crea su propio `HistorialClinico`; `Clinica` crea sus `Consultorio`. |
-
-| Agregación | `Clinica` registra veterinarios existentes. |
-
-| Enumeraciones | `EstadoCita` limita los estados posibles de una cita. |
-
-
-
-\### Diagrama de clases
-
-
-
-El siguiente diagrama representa la estructura principal del sistema:
-
-
-
-!\[Diagrama de clases de PetCare](docs/diagramas/Diagrama\_de\_Clases\_PetCare.png)
-
-
-
-\## Estructura del proyecto
-
-
+## Estructura del proyecto
 
 ```text
-
-PetCare\_OOP/
-
-│
-
+PetCare_OOP/
 ├── src/
-
-│   └── main/
-
-│       └── java/
-
-│           ├── App/
-
-│           │   └── Main.java
-
-│           │
-
-│           └── modelo/
-
-│               ├── clinica/
-
-│               ├── comprobante/
-
-│               ├── mascotas/
-
-│               ├── personas/
-
-│               └── servicios/
-
-│
-
+│   └── main/java/
+│       ├── App/
+│       │   └── Main.java
+│       └── modelo/
+│           ├── clinica/
+│           ├── comprobante/
+│           ├── mascotas/
+│           ├── personas/
+│           └── servicios/
 ├── docs/
-
 │   ├── analisis.md
-
 │   ├── diagramas/
-
-│   │   └── Diagrama\_de\_Clases\_PetCare.png
-
 │   └── capturas/
-
-│
-
 ├── .gitignore
-
 ├── pom.xml
-
 ├── LICENSE
-
 └── README.md
-
 ```
 
+## Instalación y ejecución
 
+### Requisitos
 
-\## Instalación y ejecución
-
-
-
-\### Requisitos previos
-
-
-
-\- Tener instalado Java JDK 21.
-
-\- Tener instalado Maven o utilizar el Maven Wrapper si está disponible.
-
-\- Tener Git para clonar el repositorio.
-
-
-
-\### Clonar el repositorio
-
-
+- JDK 21
+- Maven 3.9 o superior
+- Git
 
 ```bash
-
-git clone https://github.com/AndyCQ6/PetCare\_OOP.git
-
-cd PetCare\_OOP
-
+java -version
+mvn -version
 ```
 
-
-
-\### Compilar el proyecto
-
-
+### Pasos
 
 ```bash
+# 1. Clonar el repositorio
+git clone https://github.com/AndyCQ6/PetCare_OOP.git
+cd PetCare_OOP
 
+# 2. Compilar
 mvn clean compile
 
+# 3. Ejecutar
+java -cp target/classes App.Main
 ```
 
+También puedes abrir el proyecto en IntelliJ IDEA y ejecutar `src/main/java/App/Main.java`.
 
+## Demostración
 
-\### Ejecutar
+`Main` ejecuta un escenario de demostración completo. Las capturas están en [`docs/capturas/`](docs/capturas/):
 
+| Escenario | Captura |
+|---|---|
+| Registro de propietarios y mascotas | `docs/capturas/01-registro.png` |
+| Agendamiento y atención de citas | `docs/capturas/02-citas.png` |
+| Validación de reglas de negocio | `docs/capturas/03-validaciones.png` |
+| Polimorfismo de mascotas | `docs/capturas/04-polimorfismo.png` |
+| Cobros e historial clínico | `docs/capturas/05-cobros.png` |
 
+## Documentación adicional
 
-El punto de entrada del programa es:
+Análisis del sistema, clases identificadas, responsabilidades y decisiones de diseño: [`docs/analisis.md`](docs/analisis.md).
 
+## 🤖 Uso de inteligencia artificial
 
+Se usaron herramientas de IA como apoyo para resolver dudas, revisar conceptos de programación orientada a objetos y redactar documentación. Las decisiones de diseño, la integración y la adaptación del código fueron revisadas y comprendidas por el autor; la herramienta se usó como apoyo y no como sustituto del criterio propio.
 
-```text
+## 👤 Autor
 
-src/main/java/App/Main.java
+**Andy Corro Quezada**
+Estudiante de Ingeniería de Software, Universidad Veracruzana
+GitHub: [@AndyCQ6](https://github.com/AndyCQ6)
 
-```
+## 📄 Licencia
 
-
-
-Puede ejecutarse desde IntelliJ IDEA utilizando la configuración de ejecución de la clase `Main`.
-
-
-
-\## Funcionalidades principales
-
-
-
-\- Registro y administración de propietarios.
-
-\- Registro de mascotas de diferentes tipos.
-
-\- Administración de veterinarios.
-
-\- Creación y asignación de consultorios.
-
-\- Agendamiento y administración de citas.
-
-\- Registro de consultas generales, vacunaciones y cirugías.
-
-\- Cálculo de costos mediante polimorfismo.
-
-\- Generación de comprobantes.
-
-\- Consulta de historiales clínicos.
-
-\- Validación de reglas de negocio.
-
-
-
-\## Evidencias de funcionamiento
-
-
-
-Las capturas de pantalla correspondientes al escenario de demostración se encuentran en:
-
-
-
-`docs/capturas/`
-
-
-
-Se incluirán evidencias de:
-
-
-
-\- Registro de propietarios y mascotas.
-
-\- Registro de veterinarios y citas.
-
-\- Atención de citas y aplicación de servicios.
-
-\- Validación de reglas de negocio.
-
-\- Comportamiento polimórfico de las mascotas.
-
-\- Cálculo de cobros y consulta de historiales clínicos.
-
-
-
-\## Documentación adicional
-
-
-
-El análisis del sistema, las clases identificadas, sus responsabilidades y las decisiones de diseño se encuentran en:
-
-
-
-\[`docs/analisis.md`](docs/analisis.md)
-
-
-
-\## Uso de herramientas de inteligencia artificial
-
-
-
-Se utilizaron herramientas de inteligencia artificial como apoyo durante el proceso de desarrollo, principalmente para resolver dudas, revisar conceptos de programación orientada a objetos y apoyar la elaboración de documentación.
-
-
-
-Las decisiones de diseño, integración y adaptación del proyecto fueron revisadas durante el desarrollo. La herramienta se utilizó como apoyo y no como sustituto de la comprensión del código.
-
-
-
-\## Autor
-
-
-
-\*\*Andy Corro Quezada\*\*
-
-
-
-Estudiante de Ingeniería de Software  
-
-Universidad Veracruzana
-
-
-
-GitHub: \[@AndyCQ6](https://github.com/AndyCQ6)
-
-
-
-\## Licencia
-
-
-
-Este proyecto se distribuye bajo la licencia especificada en el archivo \[`LICENSE`](LICENSE).
-
+Distribuido bajo la licencia MIT [`LICENSE`](LICENSE).
